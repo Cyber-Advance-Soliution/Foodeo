@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "448514494340",
+    "firebase_url": "https://food-c4fc7.firebaseio.com",
+    "project_id": "food-c4fc7",
+    "storage_bucket": "food-c4fc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448514494340:android:4f1c5abbff5aad207817d1",
+        "android_client_info": {
+          "package_name": "com.cyberisol.foodapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448514494340-6btk99n7id6pml6oahnnjqrrlhs9jrtc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cyberisol.foodapp",
+            "certificate_hash": "7abc8e1cfb72e13deb6ca10356451ebf8b1a016b"
+          }
+        },
+        {
+          "client_id": "448514494340-qufgmjcd0tg62br7dm059fp2dimh3qc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMaX624W28ADPHxrPvg3qLMvSKANXMbcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448514494340-t2uoopkt6e5t2bh0opl9pdddddj92m4t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "448514494340-d9nqjkmgk33o61l087l4tu81n9eo6vcr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cyberisol.foodeo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
