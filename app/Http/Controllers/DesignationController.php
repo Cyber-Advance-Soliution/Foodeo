@@ -10,7 +10,6 @@ class DesignationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -20,7 +19,6 @@ class DesignationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -30,8 +28,7 @@ class DesignationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
      */
     public function store(Request $request)
     {
@@ -41,8 +38,7 @@ class DesignationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Designation  $designation
-     * @return \Illuminate\Http\Response
+     * @param \App\Designation $designation
      */
     public function show(Designation $designation)
     {
@@ -52,8 +48,7 @@ class DesignationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Designation  $designation
-     * @return \Illuminate\Http\Response
+     * @param \App\Designation $designation
      */
     public function edit(Designation $designation)
     {
@@ -63,9 +58,8 @@ class DesignationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Designation  $designation
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Designation $designation
      */
     public function update(Request $request, Designation $designation)
     {
@@ -75,8 +69,7 @@ class DesignationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Designation  $designation
-     * @return \Illuminate\Http\Response
+     * @param \App\Designation $designation
      */
     public function destroy(Designation $designation)
     {

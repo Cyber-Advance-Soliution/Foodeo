@@ -17,7 +17,8 @@
         "proengsoft/laravel-jsvalidation": ">2.2.0",
         "spatie/laravel-permission": "^3.4",
         "twilio/sdk": "^5.41",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-curl": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

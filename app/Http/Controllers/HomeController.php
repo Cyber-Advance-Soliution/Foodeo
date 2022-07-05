@@ -27,11 +27,11 @@ class HomeController extends Controller
     {
         return view('home');
     }
-	
-	public function sendNotification()
+
+    public function sendNotification()
     {
         $order = Order::first();
-  
+
         $details = [
             'greeting' => 'Hi Artisan',
             'body' => 'This is my first notification from ItSolutionStuff.com',
@@ -40,9 +40,9 @@ class HomeController extends Controller
             'actionURL' => url('/'),
             'order_id' => 101
         ];
-  
+
         $order->notify(new OrderNotification($details));
-   
+
         dd($order->notifications);
     }
 }

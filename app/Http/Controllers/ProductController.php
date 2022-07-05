@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use File;
-use Auth;
-use Image;
+use App\Helpers\SiteHelper;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use App\User;
 use App\Store;
-use SiteHelper;
 use App\Product;
 use App\ProductBanner;
 use App\ProductCategory;
@@ -40,7 +40,6 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -64,7 +63,6 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
 
     public function store(ProductRequest $request)
@@ -160,7 +158,6 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -178,7 +175,6 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
      */
     public function edit(Request $request)
     {
@@ -205,7 +201,6 @@ class ProductController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
      */
     public function update(ProductRequest $request)
     {
@@ -324,9 +319,8 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product): \Illuminate\Http\Response
+    public function destroy(Product $product)
     {
         //
     }

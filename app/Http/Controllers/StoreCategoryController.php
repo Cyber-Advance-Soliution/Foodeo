@@ -10,7 +10,6 @@ class StoreCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -20,7 +19,6 @@ class StoreCategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -30,8 +28,7 @@ class StoreCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
      */
     public function store(Request $request)
     {
@@ -41,8 +38,7 @@ class StoreCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\StoreCategory  $storeCategory
-     * @return \Illuminate\Http\Response
+     * @param \App\StoreCategory $storeCategory
      */
     public function show(StoreCategory $storeCategory)
     {
@@ -52,8 +48,7 @@ class StoreCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\StoreCategory  $storeCategory
-     * @return \Illuminate\Http\Response
+     * @param \App\StoreCategory $storeCategory
      */
     public function edit(StoreCategory $storeCategory)
     {
@@ -63,9 +58,8 @@ class StoreCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\StoreCategory  $storeCategory
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\StoreCategory $storeCategory
      */
     public function update(Request $request, StoreCategory $storeCategory)
     {
@@ -75,8 +69,7 @@ class StoreCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\StoreCategory  $storeCategory
-     * @return \Illuminate\Http\Response
+     * @param \App\StoreCategory $storeCategory
      */
     public function destroy(StoreCategory $storeCategory)
     {
