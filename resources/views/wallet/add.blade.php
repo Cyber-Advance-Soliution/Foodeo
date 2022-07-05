@@ -4,37 +4,37 @@
 
 @section('content')
 
-	<div class="row">
+    <div class="row">
         <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-success">
-				<div class="card-header">
-					<h3 class="card-title"> Add Money</h3>
-					
-				</div>
-				<!-- /.card-header -->
-				<!-- form start -->
-				<form action="{{ route('wallet-store') }}" method="post" role="form">
-					@csrf 
-                    <input type="hidden"  id="customerId" name="customerId"  value="{{$model->id}}">
-                    <input type="hidden"  id="u_id" name="u_id"  value="{{$model->u_id}}">
-					<div class="card-body">
-						<div class="form-group">
-							<label for="coupon-code">Debit</label>
-							<input type="text" class="form-control" id="debit" name="debit" placeholder="">
-						</div>
-						
-					</div>
-					<div class="card-footer text-right">
-						<button type="submit" class="btn btn-success btn-lg">Save</button>
-					</div>
-				</form>
+                <div class="card-header">
+                    <h3 class="card-title"> Add Money</h3>
+
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form action="{{ route('wallet-store') }}" method="post" role="form">
+                    @csrf
+                    <input type="hidden" id="customerId" name="customerId" value="{{$model->id}}">
+                    <input type="hidden" id="u_id" name="u_id" value="{{$model->u_id}}">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="coupon-code">Debit</label>
+                            <input type="text" class="form-control" id="debit" name="debit" placeholder="">
+                        </div>
+
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-success btn-lg">Save</button>
+                    </div>
+                </form>
             </div>
             <!-- /.card -->
-			
+
         </div>
         <!-- /.row -->
-	</div>
+    </div>
 @stop
 <!-- Javascript Requirements -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -47,8 +47,8 @@
 
 <script>
 
-	$(document).ready(function(){
-		
-	});
-	
+    $(document).ready(function () {
+
+    });
+
 </script>

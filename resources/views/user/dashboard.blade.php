@@ -4,68 +4,69 @@
 
 @section('content')
 
-	<div class="row">
-          <div class="col-lg-3 col-6">
+    <div class="row">
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
-              <div class="inner">
-                <h3> {{ $owners ? $owners : 0 }} </h3>
+                <div class="inner">
+                    <h3> {{ $owners ? $owners : 0 }} </h3>
 
-                <p> Users / Owners </p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person"></i>
-              </div>
-              <a href="{{ route('users') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <p> Users / Owners </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person"></i>
+                </div>
+                <a href="{{ route('users') }}" class="small-box-footer">More info <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
-              <div class="inner">
-                <h3> {{ $stores ? $stores : 0 }} </h3>
+                <div class="inner">
+                    <h3> {{ $stores ? $stores : 0 }} </h3>
 
-                <p> Restuarants / Branches </p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <p> Restuarants / Branches </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
-              <div class="inner">
-                <h3> {{ $customers ? $customers : 0 }} </h3>
+                <div class="inner">
+                    <h3> {{ $customers ? $customers : 0 }} </h3>
 
-                <p>Customers</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <p>Customers</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
-              <div class="inner">
-                <h3> {{ $products ? $products : 0 }} </h3>
+                <div class="inner">
+                    <h3> {{ $products ? $products : 0 }} </h3>
 
-                <p>Products</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <p>Products</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
-          <!-- ./col -->
         </div>
-        <!-- /.row -->
+        <!-- ./col -->
+    </div>
+    <!-- /.row -->
 @stop
 <script src="{{ asset('admin')}}/plugins/jquery/jquery.min.js"></script>

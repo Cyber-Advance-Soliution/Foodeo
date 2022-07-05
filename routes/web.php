@@ -1,5 +1,6 @@
 <?php
 
+use App\OrderAssigned;
 use App\User;
 use App\Customer;
 use App\CustomerDetail;
@@ -8,6 +9,9 @@ use App\OrderProduct;
 use App\Store;
 use App\Product;
 use App\ProductCategory;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Schema;
@@ -33,23 +37,21 @@ Route::get('/', function () {
 });
 
 Route::get('/assign-role', function () {
-	$users = User::all();
-	foreach($users as $user)
-	{
-		if($user->role == 1)
-		{
-			$user->assignRole('admin');
-			
-			// $permissions = Role::findByName('admin')->permissions;
-			// $userPermissions = [];
-			// foreach($permissions as $name)
-			// {
-				// array_push($userPermissions, $name->name);
-			// }
-			
-			// $user->syncPermissions($userPermissions);
-		}
-	}
+    $users = User::all();
+    foreach ($users as $user) {
+        if ($user->role == 1) {
+            $user->assignRole('admin');
+
+            // $permissions = Role::findByName('admin')->permissions;
+            // $userPermissions = [];
+            // foreach($permissions as $name)
+            // {
+            // array_push($userPermissions, $name->name);
+            // }
+
+            // $user->syncPermissions($userPermissions);
+        }
+    }
 });
 
 Route::get('orders', 'OrderController@index')->name('orders');
@@ -78,8 +80,8 @@ Route::get('/test', 'TestController@index');
 
 Route::get('/password', 'TestController@password');
 
-Route::get('/clear-cache', function() {
-	Artisan::call('config:cache');
+Route::get('/clear-cache', function () {
+    Artisan::call('config:cache');
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
     Artisan::call('config:cache');
@@ -88,19 +90,14 @@ Route::get('/clear-cache', function() {
 
 Route::get('/destroy', function () {
 
-	Schema::disableForeignKeyConstraints();
-	
-	//Store::truncate();
-	
-	
-	OrderAssigned::truncate();
-	
-	OrderProduct::truncate();
-	Order::truncate();
-	
-	CustomerDetail::truncate();
-	Customer::truncate();
-	
-	Schema::enableForeignKeyConstraints();
-	
+    Schema::disableForeignKeyConstraints();
+    //Store::truncate();
+    OrderAssigned::truncate();
+    OrderProduct::truncate();
+    Order::truncate();
+    CustomerDetail::truncate();
+    Customer::truncate();
+
+    Schema::enableForeignKeyConstraints();
+
 });

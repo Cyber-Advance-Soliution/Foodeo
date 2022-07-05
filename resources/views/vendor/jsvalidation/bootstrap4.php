@@ -1,7 +1,7 @@
 <script>
-    jQuery(document).ready(function(){
+    jQuery(document).ready(function () {
 
-        $("<?= $validator['selector']; ?>").each(function() {
+        $("<?= $validator['selector']; ?>").each(function () {
             $(this).validate({
                 errorElement: 'span',
                 errorClass: 'invalid-feedback',
@@ -24,11 +24,11 @@
                 ignore: "<?= $validator['ignore']; ?>",
                 <?php endif; ?>
 
-                
-                unhighlight: function(element) {
+
+                unhighlight: function (element) {
                     $(element).closest('.form-control').removeClass('is-invalid').addClass('is-valid');
                 },
-                
+
                 success: function (element) {
                     $(element).closest('.form-control').removeClass('is-invalid').addClass('is-valid'); // remove the Boostrap error class from the control group
                 },

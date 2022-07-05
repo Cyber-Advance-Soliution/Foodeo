@@ -17,7 +17,7 @@ class StoreRequest extends FormRequest
     {
         return true;
     }
-	
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,10 +26,11 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'store_email'         => 'required|email|unique:stores',
             'store_name' => ['required'],
 			'store_category_id' => ['required'],
 			//'store_type_id' =>'required|unique:stores,store_type_id,null,id,store_type_id,1,created_by,2',
-			'store_type_id' =>[ 
+			'store_type_id' =>[
 				'required',
 				Rule::unique('stores')->where(function ($query) {
 					$query->where(['store_type_id' => 1, 'created_by' => \Auth::id()]);
@@ -46,7 +47,7 @@ class StoreRequest extends FormRequest
 			'delivery_charges' => ['required', 'numeric'],
         ];
     }
-	
+
 	public function messages()
 	{
 		return [

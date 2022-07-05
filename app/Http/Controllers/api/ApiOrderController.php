@@ -37,7 +37,12 @@ class ApiOrderController extends Controller
 	
 	public function saveOrder(Request $request)
 	{
+<<<<<<< HEAD
+		
+		
+=======
 	
+>>>>>>> fd9e1b935308cffa6f0c1aa0dda6fee583eb0e7e
 		$user = $request->input('user');
 		$paymentModel = $request->input('paymentModel');
 		$productModel = $request->input('productModel');
@@ -108,6 +113,9 @@ class ApiOrderController extends Controller
 		$newOrder = Order::create($order);
 		$orderId = $newOrder->id;
 		if($orderId){
+<<<<<<< HEAD
+				//db notification
+=======
 			// wallet credit 
 			if($walletPayment>0){
 
@@ -124,6 +132,7 @@ class ApiOrderController extends Controller
 			}
 			
 		//db notification
+>>>>>>> fd9e1b935308cffa6f0c1aa0dda6fee583eb0e7e
 		$orderComplaint=null;
         $canceleOrder=null;
 		$admin=User::where('id',2)->first();
@@ -181,6 +190,8 @@ class ApiOrderController extends Controller
 			if($req->status==0 ){
 				$req->status=7;
 				$req->save();
+<<<<<<< HEAD
+=======
 
 				// coupon resatus
 				if(!$req->coupon->id==null){
@@ -196,6 +207,7 @@ class ApiOrderController extends Controller
 				$wallet->customer_id=$request->customer_id;
 				$wallet->save();
 				}
+>>>>>>> fd9e1b935308cffa6f0c1aa0dda6fee583eb0e7e
 				$response = [
 					'Message' => 'success',
 					'Status' => 1,
@@ -230,6 +242,9 @@ class ApiOrderController extends Controller
 
 	public function allOrder(Request $request)
 	{
+<<<<<<< HEAD
+		$orderdata = Order::with('orderProducts')->where('customer_id',$request->customer_id)->get();
+=======
 		// $orderdata = Order::with('orderProducts')->where('customer_id',$request->customer_id)->get();
 		$orderdata = Order::with('orderProducts','orderAssigned')->where('customer_id',$request->customer_id)->get();
 		// $orderdata=$orderdata->toArray();
@@ -266,6 +281,7 @@ class ApiOrderController extends Controller
 			$i++;
 			
 		}
+>>>>>>> fd9e1b935308cffa6f0c1aa0dda6fee583eb0e7e
 		if($orderdata->isEmpty()){
 			$response = [
 				'Message' => 'fail',
@@ -276,13 +292,22 @@ class ApiOrderController extends Controller
 			$response = [
 				'Message' => 'success',
 				'Status' => 1,
+<<<<<<< HEAD
+				'Data' => [
+					'order-list' => $orderdata,
+				]
+=======
 				'Data' =>['order-list'=> $orderList]
 				
+>>>>>>> fd9e1b935308cffa6f0c1aa0dda6fee583eb0e7e
 			];
 		}
         return response()->json($response);
 	}
+<<<<<<< HEAD
+=======
 
+>>>>>>> fd9e1b935308cffa6f0c1aa0dda6fee583eb0e7e
 	public function updateStatus(Request $request)
 	{
 		$data = [
@@ -331,6 +356,32 @@ class ApiOrderController extends Controller
 			];
 		}
 		return response()->json($response);
+<<<<<<< HEAD
+	}
+
+	public function orderComplaint(Request $request)
+	{
+		$req=new OrderCompliant();
+		$req->message=$request->message;
+		$req->user_id=$request->user_id;
+		$req->order_id=$request->order_id;
+		$req->save();
+		$canceleorder=null;
+		$neworder=null;
+		$admin=User::where('id',2)->first();
+		$title = 'Order Complaint  ';
+		$orderid = ' Order number is ' .$request->order_id;
+		$orderComplaint= collect(['title' => $title, 'orderid' =>$orderid, 'id' =>$request->order_id]);
+		Notification::send($admin, new OrderNotification($neworder, $canceleorder, $orderComplaint));
+		$response = [
+			'Message' => 'success',
+			'Status' => 1,
+			'Data' =>'compalint send'
+		];
+        return response()->json($response);
+	}
+
+=======
 	}
 
 	public function orderComplaint(Request $request)
@@ -392,4 +443,5 @@ class ApiOrderController extends Controller
 
 	}
 
+>>>>>>> fd9e1b935308cffa6f0c1aa0dda6fee583eb0e7e
 }

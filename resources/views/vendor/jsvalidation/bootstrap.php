@@ -1,7 +1,7 @@
 <script>
-    jQuery(document).ready(function(){
+    jQuery(document).ready(function () {
 
-        $("<?= $validator['selector']; ?>").each(function() {
+        $("<?= $validator['selector']; ?>").each(function () {
             $(this).validate({
                 errorElement: 'span',
                 errorClass: 'help-block error-help-block',
