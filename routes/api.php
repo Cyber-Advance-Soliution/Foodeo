@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/unread-notifications', 'api\ApiNotificationController@OneWeekUnreadNotification');
 Route::get('/categories', 'api\ApiCategoryController@index');
 Route::get('/products', 'api\ApiProductController@index');
 Route::post('/save-order', 'api\ApiOrderController@saveOrder');

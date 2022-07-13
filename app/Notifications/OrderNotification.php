@@ -10,20 +10,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class OrderNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-	
-    
     public $neworder;
     public $canceleorder;
     public $orderComplaint;
-   
 
     public function __construct($neworder,$canceleorder,$orderComplaint)
     {
-       
         $this->neworder=$neworder;
         $this->canceleorder=$canceleorder;
         $this->orderComplaint=$orderComplaint;
-       
     }
 
     /**
@@ -43,7 +38,7 @@ class OrderNotification extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
- 
+
 
     /**
      * Get the array representation of the notification.
@@ -54,12 +49,11 @@ class OrderNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            
             'neworder'=>$this->neworder,
             'canceleOrder'=>$this->canceleorder,
             'orderComplaint'=>  $this->orderComplaint,
         ];
     }
-	
-	
+
+
 }

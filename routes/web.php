@@ -29,7 +29,11 @@ use Illuminate\Support\Facades\Schema;
 */
 
 Auth::routes();
-
+Route::get('cache_clear', function () {
+    Artisan::call('clear-compiled');
+    Artisan::call('optimize:clear');
+    dd("All Compile data and Cache is cleared");
+});
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {

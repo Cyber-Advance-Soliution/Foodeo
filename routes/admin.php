@@ -65,18 +65,9 @@ Route::get('newOrderView/{notificationId}/{orderId}', 'OrderController@newOrderV
 Route::get('home-delivery', 'OrderController@homeDelivery')->name('home-delivery');
 Route::get('pickup', 'OrderController@pickup')->name('pickup');
 Route::get('get-orders', 'OrderController@getOrders')->name('get-orders');
-<<<<<<< HEAD
-
-Route::get('pickup-orders', 'OrderController@pickupOrders')->name('pickup-orders');
-
-Route::get('assigned-orders', 'OrderController@assignedOrders')->name('assigned-orders');
-Route::get('history-orders', 'OrderController@historyOrders')->name('history-orders');
-
-=======
 Route::get('pickup-orders', 'OrderController@pickup')->name('pickup-orders');
 Route::get('assigned-orders', 'OrderController@assignedOrders')->name('assigned-orders');
 Route::get('history-orders', 'OrderController@OrderHistory')->name('history-orders');
->>>>>>> fd9e1b935308cffa6f0c1aa0dda6fee583eb0e7e
 Route::post('status-list', 'OrderController@statusList')->name('status-list');
 Route::post('employee-list', 'OrderController@employeeList')->name('employee-list');
 ///////////////////////////////complaint
