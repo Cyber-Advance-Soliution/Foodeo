@@ -8,6 +8,7 @@ use App\Rider;
 use App\RiderLocation ;
 use App\RiderDetail;
 use App\OrderAssigned;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
@@ -24,7 +25,7 @@ class ApiRiderController extends Controller
     {
 			Log::debug('login in');
 
-        if (Auth::guard('rider')->attempt(['username' => $request['username'], 'password' => $request['password']], $request->get('remember'))) 
+        if (Auth::guard('rider')->attempt(['username' => $request['username'], 'password' => $request['password']], $request->get('remember')))
 		{
 			$authid=auth()->id;
 			// Log::debug(auth()->id);
@@ -38,39 +39,54 @@ class ApiRiderController extends Controller
 					'rider' => Auth::guard('rider')->user(),
 				]
 			];
-			
+
 			return response()->json($response);
         }
-		
+
 		$response = [
 			'Message' => 'Username or password is not valid.',
 			'Status' => 0,
 			'Data' => null
 		];
-		
+
 		return response()->json($response);
     }
-	
+
 	public function profileUpdate(Request $request)
 	{
+        try {
+            $image = ($request->has('image') ? $request->image : '');
+            $image_path = "";
+            if (isset($image)) {
+                $image_path = $this->imageUpload($request, 'assets/uploads/profile_images','profile_image');
+            }
+        } catch (Exception $e) {
+            $response = [
+                'Message' => 'Some error occurred during Image Upload request. ' .$e->getMessage(),
+                'Status' => 0,
+            ];
+            return response()->json($response);
+        }
+
 		$riderId = $request->id;
-		
+
 		$rider = [
 			"email" => $request->email,
+            "image" => $image_path
 		];
-		
+
 		Rider::where('id', $riderId)->update($rider);
-		
+
 		$riderDetail = [
 			"address" => $request->address,
 			"name" => $request->name,
 			"phone_number" => $request->phone_number,
 		];
-		
+
 		RiderDetail::where('rider_id', $riderId)->update($riderDetail);
-		
+
 		$updatedRider = Rider::where('id', $riderId)->get();
-		
+
 		$response = [
 			'Message' => 'success',
 			'Status' => 1,
@@ -78,9 +94,21 @@ class ApiRiderController extends Controller
 				'rider' => $updatedRider,
 			]
 		];
-		
+
 		return response()->json($response);
 	}
+
+    public function imageUpload($file, $url = 'assets/uploads/images', $name = 'image')
+    {
+        $allowed = array('gif', 'png', 'jpg', 'jpeg', 'GIF', 'PNG', 'JPG', 'JPEG');
+        if (in_array($file->image->extension(), $allowed)) {
+//            $name = "slider";
+            $fileName = time() . $name . '.' . $file->image->extension();
+            $file->image->move(public_path($url), $fileName);
+            $filepath = $url . '/' . $fileName;
+        }
+        return str_replace('\\', '', $filepath);
+    }
 
     public function dashboard(Request $request)
     {
@@ -94,7 +122,7 @@ class ApiRiderController extends Controller
 				->from(with(new Order)->getTable())
 				->where('status', 4);
 			})->get();
-		
+
 		$orderHistory = OrderAssigned::with('order', 'customer')
 			->where('rider_id', $riderId)
 			->whereIn('order_id', function($query){
@@ -105,7 +133,7 @@ class ApiRiderController extends Controller
 			->get();
 
 
-		
+
     	$response = [
 			'Message' => 'success',
 			'Status' => 1,
@@ -117,13 +145,13 @@ class ApiRiderController extends Controller
 				'Profile' => null,
 			]
 		];
-		
+
 		return response()->json($response);
     }
-	
+
 	public function locationSave(Request $request)
 	{
-		
+
 		$req=RiderLocation::where('rider_id',$request->rider_id)->first();
 		if($req){
 			$req->lat=$request->lat;
@@ -152,13 +180,13 @@ class ApiRiderController extends Controller
 
 			}
 		}
-		
+
 	}
 	public function locationGet(Request $request)
 	{
 		$req=RiderLocation::where('rider_id',$request->rider_id)->first();
 		if($req){
-			
+
 			$response = [
 				'Message' => 'success',
 				'Status' => 1,
@@ -166,7 +194,7 @@ class ApiRiderController extends Controller
 					'riderlocation'=>$req
 					]
 			];
-			
+
 		}else{
 			$response = [
 				'Message' => 'location  not found',
