@@ -54,46 +54,74 @@ class ApiRiderController extends Controller
 
 	public function profileUpdate(Request $request)
 	{
-        try {
-            $image = ($request->has('image') ? $request->image : '');
-            $image_path = "";
-            if (isset($image)) {
-                $image_path = $this->imageUpload($request, 'assets/uploads/profile_images','profile_image');
+	    if ($request->has('id'))
+        {
+            try {
+                $image = ($request->has('image') ? $request->image : '');
+                $image_path = "";
+                if (isset($image) && $image!='') {
+                    $image_path = $this->imageUpload($request, 'assets/uploads/profile_images', 'profile_image');
+                }
+            } catch (Exception $e) {
+                $response = [
+                    'Message' => 'Some error occurred during Image Upload request. ' . $e->getMessage(),
+                    'Status' => 0,
+                ];
+                return response()->json($response);
             }
-        } catch (Exception $e) {
+
+            $riderId = $request->id;
+
+            if($request->has('email') && $request->email!='') {
+                $rider['email'] = $request->email;
+            }
+            if($request->has('image') && $image_path!='') {
+                $rider['image'] = $image_path;
+            }
+
+//            $rider = [
+//                "email" => $request->email,
+//                "image" => $image_path
+//            ];
+
+            if (!empty($rider)) {
+                Rider::where('id', $riderId)->update($rider);
+            }
+
+            if($request->has('address') && $request->address!='') {
+                $riderDetail['address'] = $request->address;
+            }
+            if($request->has('name') && $request->name!='') {
+                $riderDetail['name'] = $request->name;
+            }
+            if($request->has('phone_number') && $request->phone_number!='') {
+                $riderDetail['phone_number'] = $request->phone_number;
+            }
+//            $riderDetail = [
+//                "address" => $request->address,
+//                "name" => $request->name,
+//                "phone_number" => $request->phone_number,
+//            ];
+
+            if (!empty($riderDetail)) {
+                RiderDetail::where('rider_id', $riderId)->update($riderDetail);
+            }
+
+            $updatedRider = Rider::where('id', $riderId)->first();
+
             $response = [
-                'Message' => 'Some error occurred during Image Upload request. ' .$e->getMessage(),
+                'Message' => 'success',
+                'Status' => 1,
+                'Data' => [
+                    'rider' => $updatedRider,
+                ]
+            ];
+        }else{
+            $response = [
+                'Message' => 'Rider ID is required',
                 'Status' => 0,
             ];
-            return response()->json($response);
         }
-
-		$riderId = $request->id;
-
-		$rider = [
-			"email" => $request->email,
-            "image" => $image_path
-		];
-
-		Rider::where('id', $riderId)->update($rider);
-
-		$riderDetail = [
-			"address" => $request->address,
-			"name" => $request->name,
-			"phone_number" => $request->phone_number,
-		];
-
-		RiderDetail::where('rider_id', $riderId)->update($riderDetail);
-
-		$updatedRider = Rider::where('id', $riderId)->get();
-
-		$response = [
-			'Message' => 'success',
-			'Status' => 1,
-			'Data' => [
-				'rider' => $updatedRider,
-			]
-		];
 
 		return response()->json($response);
 	}

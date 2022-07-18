@@ -129,8 +129,8 @@ class OrderController extends Controller
 
         $order = Order::where(['id' => $request->order_id])->first();
         $customer = Customer::where('u_id', $order->customer_id)->first();
-        // $deviceToken = $customer->device_token;
-        $deviceToken = "ekvPRy97828:APA91bEMoru-uNhiCc0qBAYQOCv9Jt4bmirz9ow2-Ski7ptXZwoS693J9Atmb_tObYO9E5IYFQNK1Zk19aYJ6RqAKPWezmdTtIRaTyApUk5EWNVpOrk6w6AdxMQM2p2U1DiRnKIhCEww";
+         $deviceToken = $customer->device_token;
+//        $deviceToken = "ekvPRy97828:APA91bEMoru-uNhiCc0qBAYQOCv9Jt4bmirz9ow2-Ski7ptXZwoS693J9Atmb_tObYO9E5IYFQNK1Zk19aYJ6RqAKPWezmdTtIRaTyApUk5EWNVpOrk6w6AdxMQM2p2U1DiRnKIhCEww";
         $statusarr = array('1' => 'accepted', '2' => 'preparing', '3' => 'ready to deliver', '4' => 'out for deliver', '5' => ' delivered', '6' => 'cancelled');
         $title = 'Order Status.';
         $message = $statusarr[$order->status];
@@ -138,10 +138,10 @@ class OrderController extends Controller
         SiteHelper::send_notification_FCM($deviceToken, $title, $message);
         // rider notification
         $Rider = Rider::where(['id' => $request->rider_id])->first();
-        // $RiderdeviceToken = $Rider->device_token;
-        $ridertitle = 'feedeo order.';
-        $ridermessage = 'recieve new order';
-        SiteHelper::send_notification_FCM($RiderdeviceToken, $ridertitle, $ridermessage);
+        $RiderDeviceToken = $Rider->device_token;
+        $ridertitle = 'Feedeo order.';
+        $ridermessage = 'Receive new order';
+        SiteHelper::send_notification_FCM($RiderDeviceToken, $ridertitle, $ridermessage);
 
         Session::flash('success', 'Order assigned successfully');
 

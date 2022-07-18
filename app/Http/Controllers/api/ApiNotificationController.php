@@ -45,7 +45,6 @@ class ApiNotificationController extends Controller
                 'Status' => 0,
             ];
         }
-
         return response()->json($response);
     }
 }

@@ -112,7 +112,7 @@ class ApiAuthController extends Controller
         try {
             $image = ($request->has('image') ? $request->image : '');
             $image_path = "";
-            if (isset($image)) {
+            if (isset($image) && $image!='') {
                 $image_path = $this->imageUpload($request, 'assets/uploads/profile_images','profile_image');
             }
         } catch (Exception $e) {
@@ -126,33 +126,69 @@ class ApiAuthController extends Controller
         $uId = $request->u_id;
 
         if ($request->is_google_id == true || $request->is_facebook_id == true) {
-            $customer = [
-                'username' => $request->username,
-                'customer_address' => $request->customer_address,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
-                'phone_number' => $request->phone_number,
-                'image' => $image_path ?? ''
-            ];
+
+            if($request->has('username') && $request->username!='') {
+                $customer['username'] = $request->username;
+            }
+            if($request->has('customer_address') && $request->customer_address!='') {
+                $customer['customer_address'] = $request->customer_address;
+            }
+            if($request->has('latitude') && $request->latitude!='') {
+                $customer['latitude'] = $request->latitude;
+            }
+            if($request->has('longitude') && $request->longitude!='') {
+                $customer['longitude'] = $request->longitude;
+            }
+            if($request->has('phone_number') && $request->phone_number!='') {
+                $customer['phone_number'] = $request->phone_number;
+            }
+            if($request->has('image') && $image_path!='') {
+                $customer['image'] = $image_path;
+            }
+//            $customer = [
+//                'username' => $request->username,
+//                'customer_address' => $request->customer_address,
+//                'latitude' => $request->latitude,
+//                'longitude' => $request->longitude,
+//                'phone_number' => $request->phone_number,
+//                'image' => $image_path ?? ''
+//            ];
         } else {
-            $customer = [
-                'username' => $request->username,
-                'customer_address' => $request->customer_address,
-                'email' => $request->email,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
-                'image' => $image_path ?? ''
-            ];
+
+            if($request->has('username') && $request->username!='') {
+                $customer['username'] = $request->username;
+            }
+            if($request->has('customer_address') && $request->customer_address!='') {
+                $customer['customer_address'] = $request->customer_address;
+            }
+            if($request->has('latitude') && $request->latitude!='') {
+                $customer['latitude'] = $request->latitude;
+            }
+            if($request->has('longitude') && $request->longitude!='') {
+                $customer['longitude'] = $request->longitude;
+            }
+            if($request->has('image') && $image_path!='') {
+                $customer['image'] = $image_path;
+            }
+//            $customer = [
+//                'username' => $request->username,
+//                'customer_address' => $request->customer_address,
+//                'email' => $request->email,
+//                'latitude' => $request->latitude,
+//                'longitude' => $request->longitude,
+//                'image' => $image_path ?? ''
+//            ];
         }
 
-
         $customerUpdate = Customer::where('u_id', $uId)->update($customer);
+        $customer = Customer::where('u_id', $uId)->first();
 
         if ($customerUpdate == true) {
             $response = [
                 'Message' => 'success',
                 'Status' => 1,
-                'image' => $image_path
+                'image' => $image_path,
+                'data' => $customer
             ];
         } else {
             $response = [
