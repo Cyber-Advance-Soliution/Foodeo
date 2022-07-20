@@ -110,85 +110,95 @@ class ApiAuthController extends Controller
     public function updateProfile(Request $request)
     {
         try {
+            $user = Customer::where('u_id', $request->u_id)->first();
+            if ($request->has('email') or $request->has('phone_number')) {
+
+                $validator = Validator::make($request->all(), [
+                    'email' => 'nullable|sometimes|email|unique:customers,email,' . $user->id,
+                    'phone_number' => 'nullable|sometimes|unique:customers,phone_number,' . $user->id,
+                ]);
+                if ($validator->fails()) {
+                    $response = [
+                        'Message' => $validator->errors()->first(),
+                        'Status' => 0,
+                    ];
+                    return response()->json($response);
+                }
+            }
+
             $image = ($request->has('image') ? $request->image : '');
             $image_path = "";
-            if (isset($image) && $image!='') {
-                $image_path = $this->imageUpload($request, 'assets/uploads/profile_images','profile_image');
+            if (isset($image) && $image != '') {
+                $image_path = $this->imageUpload($request, 'assets/uploads/profile_images', 'profile_image');
             }
         } catch (Exception $e) {
             $response = [
-                'Message' => 'Some error occurred during Image Upload request. ' .$e->getMessage(),
+                'Message' => 'Some error occurred during Image Upload request. ' . $e->getMessage(),
                 'Status' => 0,
             ];
             return response()->json($response);
         }
 
         $uId = $request->u_id;
-
         if ($request->is_google_id == true || $request->is_facebook_id == true) {
 
-            if($request->has('username') && $request->username!='') {
+            if ($request->has('username') && $request->username != '') {
                 $customer['username'] = $request->username;
             }
-            if($request->has('customer_address') && $request->customer_address!='') {
+            if ($request->has('customer_address') && $request->customer_address != '') {
                 $customer['customer_address'] = $request->customer_address;
             }
-            if($request->has('latitude') && $request->latitude!='') {
+            if ($request->has('latitude') && $request->latitude != '') {
                 $customer['latitude'] = $request->latitude;
             }
-            if($request->has('longitude') && $request->longitude!='') {
+            if ($request->has('longitude') && $request->longitude != '') {
                 $customer['longitude'] = $request->longitude;
             }
-            if($request->has('phone_number') && $request->phone_number!='') {
+            if ($request->has('phone_number') && $request->phone_number != '') {
                 $customer['phone_number'] = $request->phone_number;
             }
-            if($request->has('image') && $image_path!='') {
+            if ($request->has('email') && $request->email != '') {
+                $customer['email'] = $request->email;
+            }
+            if ($request->has('image') && $image_path != '') {
                 $customer['image'] = $image_path;
             }
-//            $customer = [
-//                'username' => $request->username,
-//                'customer_address' => $request->customer_address,
-//                'latitude' => $request->latitude,
-//                'longitude' => $request->longitude,
-//                'phone_number' => $request->phone_number,
-//                'image' => $image_path ?? ''
-//            ];
+//            $customer = [ 'username' => $request->username,'customer_address' => $request->customer_address,'latitude' => $request->latitude,'longitude' => $request->longitude,'phone_number' => $request->phone_number,'image' => $image_path ?? ''];
         } else {
 
-            if($request->has('username') && $request->username!='') {
+            if ($request->has('username') && $request->username != '') {
                 $customer['username'] = $request->username;
             }
-            if($request->has('customer_address') && $request->customer_address!='') {
+            if ($request->has('customer_address') && $request->customer_address != '') {
                 $customer['customer_address'] = $request->customer_address;
             }
-            if($request->has('latitude') && $request->latitude!='') {
+            if ($request->has('latitude') && $request->latitude != '') {
                 $customer['latitude'] = $request->latitude;
             }
-            if($request->has('longitude') && $request->longitude!='') {
+            if ($request->has('longitude') && $request->longitude != '') {
                 $customer['longitude'] = $request->longitude;
             }
-            if($request->has('image') && $image_path!='') {
+            if ($request->has('phone_number') && $request->phone_number != '') {
+                $customer['phone_number'] = $request->phone_number;
+            }
+            if ($request->has('email') && $request->email != '') {
+                $customer['email'] = $request->email;
+            }
+            if ($request->has('image') && $image_path != '') {
                 $customer['image'] = $image_path;
             }
-//            $customer = [
-//                'username' => $request->username,
-//                'customer_address' => $request->customer_address,
-//                'email' => $request->email,
-//                'latitude' => $request->latitude,
-//                'longitude' => $request->longitude,
-//                'image' => $image_path ?? ''
-//            ];
+//            $customer = ['username' => $request->username,'customer_address' => $request->customer_address,'email' => $request->email,'latitude' => $request->latitude,'longitude' => $request->longitude,'image' => $image_path ?? ''];
         }
 
         $customerUpdate = Customer::where('u_id', $uId)->update($customer);
-        $customer = Customer::where('u_id', $uId)->first();
+        $customerData['customer'] = Customer::where('u_id', $uId)->first();
 
         if ($customerUpdate == true) {
             $response = [
                 'Message' => 'success',
                 'Status' => 1,
                 'image' => $image_path,
-                'data' => $customer
+                'Data' => $customerData
             ];
         } else {
             $response = [

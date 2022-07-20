@@ -160,8 +160,6 @@ class ApiRiderController extends Controller
 			})
 			->get();
 
-
-
     	$response = [
 			'Message' => 'success',
 			'Status' => 1,
@@ -177,9 +175,8 @@ class ApiRiderController extends Controller
 		return response()->json($response);
     }
 
-	public function locationSave(Request $request)
-	{
-
+	public function locationSave(Request $request): \Illuminate\Http\JsonResponse
+    {
 		$req=RiderLocation::where('rider_id',$request->rider_id)->first();
 		if($req){
 			$req->lat=$request->lat;
@@ -205,11 +202,10 @@ class ApiRiderController extends Controller
 					'Data' => $obj,
 				];
 				return response()->json($response);
-
 			}
 		}
-
 	}
+
 	public function locationGet(Request $request)
 	{
 		$req=RiderLocation::where('rider_id',$request->rider_id)->first();
