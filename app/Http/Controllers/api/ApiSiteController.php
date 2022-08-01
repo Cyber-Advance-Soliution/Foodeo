@@ -16,15 +16,15 @@ class ApiSiteController extends Controller
     public function index()
     {
 		$productCategories = ProductCategory::with('products')->get();
-		
+
         $products = Product::with('productBanners', 'productAttributes')->get();
-		
+
 		$store = Store::with('storeBanners')->where(['status' => 1])->get();
-		
+
 		$Deals = [];
-		
+
 		$orders = Order::with('orderProducts')->get();
-		
+
 		$response = [
 			'Message' => 'success',
 			'Status' => 1,
@@ -36,26 +36,26 @@ class ApiSiteController extends Controller
 				'MyOrders' => $orders,
 			]
 		];
-		
+
         return response()->json($response);
     }
-	
+
 	public function home(Request $request)
 	{
 		$customerId = $request['u_id'];
 		$deviceToken = $request['device_token'];
-		
+
 		if($deviceToken)
 		{
 			Customer::where('u_id', $customerId)->update(['device_token' => $deviceToken]);
 		}
-		
+
 		$customerAdrress = $request['customer_adrress'];
 		$lat = $request['latitude'];
 		$lon = $request['longitude'];
-		
+
 		$hubStore = Store::where(['store_type_id' => 1])->first();
-		
+
 		$nearestStore = Store::select("*"
 			,DB::raw("6371 * acos(cos(radians(" . $lat . "))
 			* cos(radians(stores.latitude))
@@ -67,12 +67,12 @@ class ApiSiteController extends Controller
 			->orderBy("nearest", 'asc')
 			->limit(1)
 			->get();
-		
+
 		$storeProductCategories = ProductCategory::where('store_id', $nearestStore[0]->id)->get();
 		$storeProducts = Product::with('productBanners', 'productAttributes')->where('store_id', $nearestStore[0]->id)->get();
-		
+
 		$customerOrders = Order::with('orderProducts')->where('customer_id', $customerId)->get();
-		
+
 		$response = [
 			'Message' => 'success',
 			'Status' => 1,
@@ -89,7 +89,7 @@ class ApiSiteController extends Controller
 				'MyOrders' => $customerOrders,
 			]
 		];
-		
+
         return response()->json($response);
 	}
 }
