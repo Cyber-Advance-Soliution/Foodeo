@@ -32,7 +32,7 @@
                             <tr>
                                 <td> {{ ++$i }} </td>
                                 <td> {{ $category->category_name }} </td>
-                                <td> {{ $category->store->store_name }} </td>
+                                <td> {{ $category->store->store_name??'' }} </td>
                                 <td> {{ $category->user->username }} </td>
 
 
